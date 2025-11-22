@@ -13,7 +13,13 @@ sp = spotipy.Spotify(
     )
 )
 
-results = sp.current_user_saved_tracks()
-for idx, item in enumerate(results['items']):
-    track = item['track']
-    print(idx, track['artists'][0]['name'], " – ", track['name'])
+clairo_uri = 'spotify:artist:3l0CmX0FuQjFxr8SK7Vqag'
+
+results = sp.artist_albums(clairo_uri, album_type='album')
+albums = results['items']
+while results['next']:
+    results = sp.next(results)
+    albums.extend(results['items'])
+
+for album in albums:
+    print(album['name'])
