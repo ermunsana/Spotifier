@@ -17,5 +17,35 @@ fetch("http://localhost:8000/saved-tracks")
 
   });
 
+  fetch("http://localhost:8000/following-artists")
+  .then(res => res.json())
+  .then(data => {
+    const list = document.getElementById("artists");
+    data.forEach(artist => {
+    const li = document.createElement("li");
+    const img = document.createElement("img");
+    li.textContent += `${artist.name}`;
+    list.appendChild(li);
+        });
+  });
+
+  fetch("http://localhost:8000/following-artists")
+  .then(res => res.json())
+  .then(data => {
+    const list = document.getElementById("artists-images");
+    data.forEach(artist => {
+    const li = document.createElement("li");
+    const img = document.createElement("img");
+    img.src = artist.images[0]?.url || "";
+    img.alt = artist.name;
+    img.width = 100;
+    li.appendChild(img);
+    list.appendChild(li);
+        });
+  });
+
+  
+
+
 
 
